@@ -49,17 +49,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="createDatabaseMenu.cs">
+    <Compile Include="Singleton\RegisterSingleton.cs" />
+    <Compile Include="Views\createDatabaseMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="createDatabaseMenu.Designer.cs">
+    <Compile Include="Views\createDatabaseMenu.Designer.cs">
       <DependentUpon>createDatabaseMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Database.cs" />
+    <Compile Include="Models\Encrytp.cs" />
     <Compile Include="Models\Register.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="createDatabaseMenu.resx">
+    <EmbeddedResource Include="Views\createDatabaseMenu.resx">
       <DependentUpon>createDatabaseMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

@@ -22,11 +22,5 @@ namespace BaseZ.Models
             this._passwordDatabase = passwordDatabase;
             this._registers = new List<Register>();
         }
-
-        public Database createOneDatabase(string nameDatabase, string password) { 
-            Database database = new Database(nameDatabase,password);
-            database._registers.Add(new Register("1", "data", "data@data.es", "dataData", "123456", "www.google.es"));
-            return database;
-        }
     }
 }
