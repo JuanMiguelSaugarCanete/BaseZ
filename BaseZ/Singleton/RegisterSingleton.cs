@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BaseZ.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,9 +7,10 @@ using System.Threading.Tasks;
 
 namespace BaseZ.Singleton
 {
-    public sealed class RegisterSingleton
+    public class RegisterSingleton
     {
-        private readonly static RegisterSingleton _instance = new RegisterSingleton();
+        private static RegisterSingleton _instance = new RegisterSingleton();
+        
         private RegisterSingleton() { 
         
         }

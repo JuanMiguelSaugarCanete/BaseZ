@@ -49,20 +49,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Controller\RegisterController.cs" />
+    <Compile Include="Singleton\ConfigurationSingleton.cs" />
+    <Compile Include="Singleton\EncrytpSingleton.cs" />
     <Compile Include="Singleton\RegisterSingleton.cs" />
-    <Compile Include="Views\createDatabaseMenu.cs">
+    <Compile Include="Controller\EncryptController.cs" />
+    <Compile Include="Util\JsonSerializerBaseZ.cs" />
+    <Compile Include="Views\CreateDatabaseMenu.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Views\createDatabaseMenu.Designer.cs">
-      <DependentUpon>createDatabaseMenu.cs</DependentUpon>
+    <Compile Include="Views\CreateDatabaseMenu.Designer.cs">
+      <DependentUpon>CreateDatabaseMenu.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Database.cs" />
     <Compile Include="Models\Encrytp.cs" />
     <Compile Include="Models\Register.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Views\createDatabaseMenu.resx">
-      <DependentUpon>createDatabaseMenu.cs</DependentUpon>
+    <Compile Include="Views\CRUDRegister\CreateRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\CRUDRegister\CreateRegister.Designer.cs">
+      <DependentUpon>CreateRegister.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Menu.Designer.cs">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OpenDatabase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\OpenDatabase.Designer.cs">
+      <DependentUpon>OpenDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewsRegisters.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ViewsRegisters.Designer.cs">
+      <DependentUpon>ViewsRegisters.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Views\CreateDatabaseMenu.resx">
+      <DependentUpon>CreateDatabaseMenu.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -73,6 +103,18 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Views\CRUDRegister\CreateRegister.resx">
+      <DependentUpon>CreateRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Menu.resx">
+      <DependentUpon>Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\OpenDatabase.resx">
+      <DependentUpon>OpenDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ViewsRegisters.resx">
+      <DependentUpon>ViewsRegisters.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="configuration.json" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

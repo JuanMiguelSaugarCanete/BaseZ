@@ -1,29 +1,40 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
+using System;
+
 using System.IO;
-using System.Linq;
+
 using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace BaseZ.Models
 {
-    internal class Encrytp
+    class Encrytp
     {
         readonly CspParameters _cspp = new CspParameters();
         RSACryptoServiceProvider _rsa;
         private string _key;
         private string _EncrFolder;
         private string _DescrFolder;
-
-        public Encrytp(string key,string url) { 
+        private byte[] Key_;
+        private byte[] IV_;
+        public Encrytp()
+        {
+            this._DescrFolder = Configuration.Configuration.DEFAULT_PATH;
+            this._EncrFolder = Configuration.Configuration.DEFAULT_PATH;
+            this._key = Configuration.Configuration.PWD;
+            createKey();
+        }
+        public Encrytp(string key)
+        {
             this._key = key;
-            this._DescrFolder = url;
-            this._EncrFolder = url;
+            Configuration.Configuration.PWD = key;
+            this._DescrFolder = Configuration.Configuration.DEFAULT_PATH;
+            this._EncrFolder = Configuration.Configuration.DEFAULT_PATH; 
             createKey();
         }
 
-        private void createKey() {
+        private void createKey()
+        {
             _cspp.KeyContainerName = _key;
             _rsa = new RSACryptoServiceProvider(_cspp)
             {
@@ -32,11 +43,18 @@ namespace BaseZ.Models
 
         }
 
+        private static Aes generateKeyIV() { 
+            Aes aes = Aes.Create();
+            aes.Key = Convert.FromBase64String("0c2e1qMxOgZqDvMHyBVN1E==");
+            aes.IV = Convert.FromBase64String("0c2e1qMxOgZqDvMHyBVN1E==");
+            return aes;
+        }
         public string Key { get => _key; set => _key = value; }
         public string EncrFolder { get => _EncrFolder; set => _EncrFolder = value; }
         public string DescrFolder { get => _DescrFolder; set => _DescrFolder = value; }
 
-        public void EncryptFile(FileInfo file) {
+        public void EncryptFile(FileInfo file)
+        {
             // Create instance of Aes for
             // symmetric encryption of the data.
             Aes aes = Aes.Create();
@@ -103,7 +121,7 @@ namespace BaseZ.Models
                     outStreamEncrypted.FlushFinalBlock();
                 }
             }
-    }
+        }
 
         public void DecryptFile(FileInfo file)
         {
@@ -154,8 +172,9 @@ namespace BaseZ.Models
                 inFs.Read(KeyEncrypted, 0, lenK);
                 inFs.Seek(8 + lenK, SeekOrigin.Begin);
                 inFs.Read(IV, 0, lenIV);
-
                 Directory.CreateDirectory(this._DescrFolder);
+                
+                
                 // Use RSACryptoServiceProvider
                 // to decrypt the AES key.
                 byte[] KeyDecrypted = null;
@@ -168,11 +187,12 @@ namespace BaseZ.Models
                 {
 
                     Console.WriteLine("Error al desencriptar" + e);
-                    
+
                     correctPassword = false;
-                    createDatabaseMenu.Error("La contraseña es erronea");
+                    CreateDatabaseMenu.Error("La contraseña es erronea");
                 }
-                if (correctPassword) {
+                if (correctPassword)
+                {
                     // Decrypt the key.
                     ICryptoTransform transform = aes.CreateDecryptor(KeyDecrypted, IV);
 
@@ -210,8 +230,79 @@ namespace BaseZ.Models
                         }
                     }
                 }
-                
+
             }
         }
+
+        public Register EncryptPassword(Register register) {
+            if (register.PasswordDesencrypt == null || register.PasswordDesencrypt.Length<=0) {
+                throw new ArgumentNullException("Password dont exits");
+            }
+            byte[] encrypted;
+
+            // Create an Aes object
+            // with the specified key and IV.
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = generateKeyIV().Key;
+                aesAlg.IV = generateKeyIV().IV;
+
+                // Create an encryptor to perform the stream transform.
+                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+                // Create the streams used for encryption.
+                using (MemoryStream msEncrypt = new MemoryStream())
+                {
+                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
+                        {
+                            //Write all data to the stream.
+                            swEncrypt.Write(register.PasswordDesencrypt);
+                        }
+                        encrypted = msEncrypt.ToArray();
+                    }
+                }
+            }
+
+            // Return the encrypted bytes from the memory stream.
+            register.PasswordEncrypt = encrypted;
+            EncrytpSingleton.Instance.Passwords.Add(register);
+            return register;
+        }
+
+        public Register DecryptPassword(Register register) {
+            
+                if (register.PasswordEncrypt == null || register.PasswordEncrypt.Length <= 0) {
+                    throw new ArgumentNullException("cipherText");
+                }
+                string passwordDecrypt = null;
+                using (Aes aesAlg = Aes.Create())
+                {
+                    aesAlg.Key = generateKeyIV().Key;
+                    aesAlg.IV = generateKeyIV().IV;
+
+                    // Create a decryptor to perform the stream transform.
+                    ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+                    // Create the streams used for decryption.
+                    using (MemoryStream msDecrypt = new MemoryStream(register.PasswordEncrypt))
+                    {
+                        using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                        {
+                            using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                            {
+
+                                // Read the decrypted bytes from the decrypting stream
+                                // and place them in a string.
+                                passwordDecrypt = srDecrypt.ReadToEnd();
+                            }
+                        }
+                    }
+                }
+                register.PasswordDesencrypt = passwordDecrypt;
+            return register;
+        }
     }
+    
 }

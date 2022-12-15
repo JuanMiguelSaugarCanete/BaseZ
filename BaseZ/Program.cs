@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using BaseZ.Models;
+using BaseZ.Views;
 
 namespace BaseZ
 {
@@ -16,7 +18,7 @@ namespace BaseZ
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new createDatabaseMenu());
+            Application.Run(new Views.Menu());
         }
     }
 }

@@ -22,5 +22,15 @@ namespace BaseZ.Models
             this._passwordDatabase = passwordDatabase;
             this._registers = new List<Register>();
         }
+
+        public List<Register> Registers { get => _registers; set => _registers = value; }
+
+        public static Database initDatabase() { 
+            Database db = new Database();
+            Encrytp encrytp = new Encrytp();
+            db.Registers.Add(encrytp.EncryptPassword(new Register("1", "data", "data@data.es", "dataData", "www.google.es","Hola1")));
+            db.Registers.Add(encrytp.EncryptPassword(new Register("2", "data", "data@data.es", "dataData", "www.google.es", "Hola2")));
+            return db;
+        }
     }
 }
