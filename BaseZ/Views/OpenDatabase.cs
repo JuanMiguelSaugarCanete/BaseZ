@@ -1,4 +1,6 @@
-﻿using BaseZ.Models;
+﻿using BaseZ.Constants;
+using BaseZ.Controller;
+using BaseZ.Models;
 using BaseZ.Singleton;
 using BaseZ.Util;
 using Newtonsoft.Json;
@@ -18,39 +20,45 @@ namespace BaseZ.Views
     public partial class OpenDatabase : Form
     {
         private Form menu_;
+        private DatabaseController databaseController_;
+        private ViewController viewController_;
         public OpenDatabase(Form menu)
         {
             this.menu_ = menu;
             InitializeComponent();
         }
-
-        private async void DecryptFile(object sender, EventArgs e)
+        public OpenDatabase()
+        {
+            this.databaseController_ = new DatabaseController();
+            this.viewController_ = new ViewController();
+            InitializeComponent();
+        }
+        private void DecryptFile(object sender, EventArgs e)
         {
             string password = this.bdPasswd.Text.ToString();
             string name = this.bdName.Text.ToString();
-            string pathComplete = Configuration.Configuration.DEFAULT_PATH + name + ".enc";
-            ConfigurationSingleton.Instance.PathDatabase = pathComplete;
-            string pathCompleteJSON = Configuration.Configuration.DEFAULT_PATH + name + ".json";
-            Encrytp encrytp = new Encrytp(password);
-            encrytp.DecryptFile(new FileInfo(pathComplete));
-            //File.Delete(pathComplete);
-            string jsonString = File.ReadAllText(pathCompleteJSON);
-            List<Register> registersJSON = JsonSerializerBaseZ.DeserializeRegister(jsonString);
-            File.Delete(pathCompleteJSON);
-            ViewsRegisters viewsRegisters = new ViewsRegisters(this.menu_, registersJSON);
-            viewsRegisters.Show();
+
+            this.databaseController_.OpenDatabase(new Database(name, password));
             this.Close();
+            this.viewController_.openView(ViewsConstant.AC_OPEN_VIEW, ViewsConstant.AC_OPEN_VIEW_REGISTER);
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            this.menu_.Show();
+            this.viewController_.openView(ViewsConstant.AC_OPEN_VIEW, ViewsConstant.AC_BACK_TO_MENU);
             this.Close();
 
         }
 
         private void OpenDatabase_FormClosed(object sender, FormClosedEventArgs e)
         {
-            //Application.Exit();
+            Application.Exit();
+        }
+
+        private void SelectorDB_Click(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog().Equals(DialogResult.OK)) {
+                this.bdName.Text = openFileDialog1.FileName;
+            }
         }
     }
 }

@@ -10,5 +10,7 @@ namespace BaseZ.Configuration
     {
         public static string DEFAULT_PATH = @"C:\Users\JuanMiguel\source\repos\BaseZ\BaseZ\Databases\";
         public static string PWD = "";
+        public static string FORMAT_DB = ".enc";
+        public static string FORMAT_JSON = ".json";
     }
 }

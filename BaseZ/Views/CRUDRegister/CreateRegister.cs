@@ -14,8 +14,8 @@ namespace BaseZ.Views.CRUDRegister
 {
     public partial class CreateRegister : Form
     {
-        private ViewsRegisters _viewsRegisters;
-        public CreateRegister(ViewsRegisters viewsRegisters)
+        private ViewsRegistersView _viewsRegisters;
+        public CreateRegister(ViewsRegistersView viewsRegisters)
         {
             InitializeComponent();
             this._viewsRegisters = viewsRegisters;

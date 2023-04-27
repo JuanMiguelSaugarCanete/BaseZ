@@ -1,4 +1,6 @@
-﻿using BaseZ.Models;
+﻿using BaseZ.Controller;
+using BaseZ.Models;
+using BaseZ.Singleton;
 using BaseZ.Views.CRUDRegister;
 using System;
 using System.Collections.Generic;
@@ -12,27 +14,37 @@ using System.Windows.Forms;
 
 namespace BaseZ.Views
 {
-    public partial class ViewsRegisters : Form
+    public partial class ViewsRegistersView : Form
     {
         public List<Register> registers_ = new List<Register>();
         private Form menu_;
-        public ViewsRegisters(Form menu, List<Register> registers)
+        private string _cellValue = String.Empty;
+        
+        public ViewsRegistersView()
         {
-            this.menu_ = menu;
-            this.registers_ = registers;
+            this.registers_ = ConfigurationSingleton.Instance.Registers;
             InitializeComponent();
-            showRegisters();
+            //showRegisters();
         }
 
         private void showRegisters()
         {
-            int separationCont = 200;
             if (this.registers_.Count.Equals(0)) {
                 Console.WriteLine("vasio");
             }
-            foreach (var register in this.registers_)
+            /*foreach (var register in this.registers_)
             {
+                DataGridViewRow row = new DataGridViewRow();
+                row.ContextMenuStrip();
                 this.dataGridView1.Rows.Add(register.toStringArray);
+            }*/
+
+            for (int i = 0; i < this.registers_.Count; i++)
+            {
+                this.dataGridView1.Rows.Add(this.registers_[i].toStringArray);
+                DataGridViewRow row = this.dataGridView1.Rows[i];
+
+
             }
 
         }
@@ -46,6 +58,35 @@ namespace BaseZ.Views
         {
             CreateRegister create = new CreateRegister(this);
             create.Show();
+        }
+
+        private void ViewsRegisters_Load(object sender, EventArgs e)
+        {
+            showRegisters();
+        }
+
+        private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button != MouseButtons.Right) return;
+
+            if (e.ColumnIndex < 0 || e.RowIndex < 0)
+                return;
+            _cellValue = dataGridView1[0, e.RowIndex].Value.ToString();
+            this.contextMenuStrip1.Show(MousePosition);
+        }
+
+        private void contextMenuStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            switch (e.ClickedItem.Name.ToLower())
+            {
+                case "add":
+                    Console.WriteLine("annadir "+this._cellValue);
+                    break;
+                case "delete":
+                    Console.WriteLine("Eliminar " + this._cellValue);
+                    break;
+            }
+
         }
     }
 }

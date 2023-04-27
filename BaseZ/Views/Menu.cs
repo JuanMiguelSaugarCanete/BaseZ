@@ -1,4 +1,7 @@
-﻿using BaseZ.Models;
+﻿using BaseZ.Constants;
+using BaseZ.Controller;
+using BaseZ.Models;
+using BaseZ.Singleton;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,29 +16,27 @@ namespace BaseZ.Views
 {
     public partial class Menu : Form
     {
+        private ViewController viewController_;
         public Menu()
         {
             InitializeComponent();
-            
+            this.viewController_ = new ViewController();
+            ConfigurationSingleton.Instance.MenuForm = this;
         }
 
         private void create_Click(object sender, EventArgs e)
         {
-            CreateDatabaseMenu createDB = new CreateDatabaseMenu(this);
-            createDB.Show();
-            this.Hide();
+            this.viewController_.openView(ViewsConstant.AC_OPEN_VIEW, ViewsConstant.AC_OPEN_VIEW_CREATE_DB);
         }
 
         private void open_Click(object sender, EventArgs e)
         {
-            OpenDatabase openDB = new OpenDatabase(this);
-            openDB.Show();
-            this.Hide();
+            this.viewController_.openView(ViewsConstant.AC_OPEN_VIEW, ViewsConstant.AC_OPEN_VIEW_OPEN_DB);
         }
 
         private void Menu_FormClosed(object sender, FormClosedEventArgs e)
         {
-            
+            Application.Exit();
         }
     }
 }

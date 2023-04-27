@@ -49,11 +49,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Action\ActionOpenView.cs" />
     <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="Constants\ViewsConstant.cs" />
+    <Compile Include="Controller\DatabaseController.cs" />
     <Compile Include="Controller\RegisterController.cs" />
+    <Compile Include="Controller\ViewController.cs" />
+    <Compile Include="Interface\IActionView.cs" />
+    <Compile Include="Interface\IViewController.cs" />
     <Compile Include="Singleton\ConfigurationSingleton.cs" />
     <Compile Include="Singleton\EncrytpSingleton.cs" />
-    <Compile Include="Singleton\RegisterSingleton.cs" />
     <Compile Include="Controller\EncryptController.cs" />
     <Compile Include="Util\JsonSerializerBaseZ.cs" />
     <Compile Include="Views\CreateDatabaseMenu.cs">

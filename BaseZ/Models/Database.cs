@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BaseZ.Models
 {
-    internal class Database
+    public class Database
     {
         private string _nameDatabase;
         private string _passwordDatabase;
@@ -18,12 +18,14 @@ namespace BaseZ.Models
         }
         public Database(string nameDatabase, string passwordDatabase)
         {
-            this._nameDatabase = nameDatabase;
-            this._passwordDatabase = passwordDatabase;
+            this.NameDatabase = nameDatabase;
+            this.PasswordDatabase = passwordDatabase;
             this._registers = new List<Register>();
         }
 
         public List<Register> Registers { get => _registers; set => _registers = value; }
+        public string NameDatabase { get => _nameDatabase; set => _nameDatabase = value; }
+        public string PasswordDatabase { get => _passwordDatabase; set => _passwordDatabase = value; }
 
         public static Database initDatabase() { 
             Database db = new Database();

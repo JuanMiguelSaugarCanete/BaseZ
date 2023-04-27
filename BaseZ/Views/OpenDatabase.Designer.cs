@@ -34,6 +34,8 @@
             this.bdPasswd = new System.Windows.Forms.TextBox();
             this.opendb = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
+            this.SelectorDB = new System.Windows.Forms.Button();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // bdName
@@ -88,11 +90,26 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
+            // SelectorDB
+            // 
+            this.SelectorDB.Location = new System.Drawing.Point(519, 89);
+            this.SelectorDB.Name = "SelectorDB";
+            this.SelectorDB.Size = new System.Drawing.Size(75, 23);
+            this.SelectorDB.TabIndex = 7;
+            this.SelectorDB.Text = "Seleccionar";
+            this.SelectorDB.UseVisualStyleBackColor = true;
+            this.SelectorDB.Click += new System.EventHandler(this.SelectorDB_Click);
+            // 
+            // openFileDialog1
+            // 
+            this.openFileDialog1.FileName = "openFileDialog1";
+            // 
             // OpenDatabase
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.SelectorDB);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.opendb);
             this.Controls.Add(this.bdPasswd);
@@ -115,5 +132,7 @@
         private System.Windows.Forms.TextBox bdPasswd;
         private System.Windows.Forms.Button opendb;
         private System.Windows.Forms.Button button2;
+        private System.Windows.Forms.Button SelectorDB;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

@@ -49,6 +49,6 @@ namespace BaseZ.Models
         public byte[] PasswordEncrypt { get => _passwordEncrypt; set => _passwordEncrypt = value; }
         public string PasswordDesencrypt { get => _passwordDesencrypt; set => _passwordDesencrypt = value; }
 
-        public string[] toStringArray { get => new string[] { Name, UserName, Email, Url, PasswordDesencrypt }; }
+        public string[] toStringArray { get => new string[] { Id,Name, UserName, Email, Url, PasswordDesencrypt }; }
     }
 }
