@@ -7,6 +7,7 @@ using BaseZ.Constants;
 using BaseZ.Interface;
 using BaseZ.Singleton;
 using BaseZ.Views;
+using BaseZ.Views.CRUDRegister;
 
 namespace BaseZ.Action
 {
@@ -27,11 +28,14 @@ namespace BaseZ.Action
                     createDB.Show();
                     break;
                 case ViewsConstant.AC_OPEN_VIEW_REGISTER:
-                    ViewsRegistersView viewsRegisters = new ViewsRegistersView();
+                    ViewRegisters viewsRegisters = new ViewRegisters();
                     viewsRegisters.Show();
                     break;
                 case ViewsConstant.AC_BACK_TO_MENU:
                     ConfigurationSingleton.Instance.MenuForm.Show();
+                    break;
+                case ViewsConstant.AC_OPEN_VIEW_CREATE_REGISTER:
+                    new CreateRegister().Show();
                     break;
             }
         }

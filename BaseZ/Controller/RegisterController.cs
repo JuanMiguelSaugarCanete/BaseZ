@@ -13,7 +13,7 @@ namespace BaseZ.Controller
     public class RegisterController
     {
 
-        public Register createRegister(Register register) {
+        public void createRegister(Register register) {
             Encrytp encrytp = new Encrytp();
             encrytp.EncryptPassword(register);
             encrytp.DecryptFile(new FileInfo(ConfigurationSingleton.Instance.PathDatabase));
@@ -26,7 +26,7 @@ namespace BaseZ.Controller
             File.WriteAllText(pathTemp, jsonBD);
             encrytp.EncryptFile(new FileInfo(pathTemp));
             File.Delete(pathTemp);
-            return register;
+            ConfigurationSingleton.Instance.Registers.Add(register);
         }
 
         public string generateID(List<Register> registers) {

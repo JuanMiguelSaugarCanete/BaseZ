@@ -20,20 +20,22 @@ namespace BaseZ.Views.CRUDRegister
             InitializeComponent();
             this._viewsRegisters = viewsRegisters;
         }
+        public CreateRegister()
+        {
+            InitializeComponent();
+        }
 
-       
 
         private void createRegister(object sender, EventArgs e)
         {
             RegisterController controller = new RegisterController();
-            Register register = controller.createRegister(
+            controller.createRegister(
                 new Register(this.textBoxName.Text.ToString(),
                 this.textBoxEmail.Text.ToString(),
                 this.textBoxUserName.Text.ToString(),
                 this.textBoxURL.Text.ToString(),
                 this.textBoxPw.Text.ToString())
             );
-            this._viewsRegisters.dataGridView1.Rows.Add(register.toStringArray);
             this.Close();
         }
     }

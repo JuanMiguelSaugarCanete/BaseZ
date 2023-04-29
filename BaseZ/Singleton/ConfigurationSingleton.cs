@@ -16,6 +16,7 @@ namespace BaseZ.Singleton
         private string pathDatabase_;
         private Form menuForm_;
         private List<Register> registers_;
+        private bool btnBaack;
         public static ConfigurationSingleton Instance
         {
             get { return _instance; }
@@ -30,5 +31,6 @@ namespace BaseZ.Singleton
             set => menuForm_ = value;
         }
         public List<Register> Registers { get => registers_; set => registers_ = value; }
+        public bool BtnBaack { get => btnBaack; set => btnBaack = value; }
     }
 }

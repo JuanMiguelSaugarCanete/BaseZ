@@ -17,7 +17,6 @@ namespace BaseZ.Views
     public partial class ViewsRegistersView : Form
     {
         public List<Register> registers_ = new List<Register>();
-        private Form menu_;
         private string _cellValue = String.Empty;
         
         public ViewsRegistersView()

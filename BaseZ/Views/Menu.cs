@@ -22,16 +22,17 @@ namespace BaseZ.Views
             InitializeComponent();
             this.viewController_ = new ViewController();
             ConfigurationSingleton.Instance.MenuForm = this;
+            ConfigurationSingleton.Instance.BtnBaack = false;
         }
 
         private void create_Click(object sender, EventArgs e)
         {
-            this.viewController_.openView(ViewsConstant.AC_OPEN_VIEW, ViewsConstant.AC_OPEN_VIEW_CREATE_DB);
+            this.viewController_.openView(ViewsConstant.AC_OPEN_VIEW, ViewsConstant.AC_OPEN_VIEW_CREATE_DB,null);
         }
 
         private void open_Click(object sender, EventArgs e)
         {
-            this.viewController_.openView(ViewsConstant.AC_OPEN_VIEW, ViewsConstant.AC_OPEN_VIEW_OPEN_DB);
+            this.viewController_.openView(ViewsConstant.AC_OPEN_VIEW, ViewsConstant.AC_OPEN_VIEW_OPEN_DB,null);
         }
 
         private void Menu_FormClosed(object sender, FormClosedEventArgs e)

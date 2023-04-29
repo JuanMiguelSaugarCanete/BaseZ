@@ -39,19 +39,16 @@ namespace BaseZ.Views
             string name = this.bdName.Text.ToString();
 
             this.databaseController_.OpenDatabase(new Database(name, password));
-            this.Close();
-            this.viewController_.openView(ViewsConstant.AC_OPEN_VIEW, ViewsConstant.AC_OPEN_VIEW_REGISTER);
+            this.viewController_.openView(ViewsConstant.AC_OPEN_VIEW, ViewsConstant.AC_OPEN_VIEW_REGISTER,this);
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            this.viewController_.openView(ViewsConstant.AC_OPEN_VIEW, ViewsConstant.AC_BACK_TO_MENU);
-            this.Close();
-
+            this.viewController_.backMenuBtn(this);
         }
 
         private void OpenDatabase_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Application.Exit();
+            this.viewController_.closeApp();
         }
 
         private void SelectorDB_Click(object sender, EventArgs e)

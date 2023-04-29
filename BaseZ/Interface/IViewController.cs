@@ -9,6 +9,6 @@ namespace BaseZ.Interface
 {
     public interface IViewController
     {
-        void openView(string action,string viewToOpen);
+        void openView(string action,string viewToOpen, Form actualForm);
     }
 }
